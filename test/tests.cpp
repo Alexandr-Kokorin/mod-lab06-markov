@@ -40,7 +40,7 @@ TEST(GenerateTest, OnceSuffix) {
 }
 
 TEST(GenerateTest, VectorSuffix) {
-    std::string text = "qwe rty uio a qwe rty uio b qwe rty uio c";
+    std::string text = "aa bb cc x aa bb cc y aa bb cc z";
     int prefixLength = 2;
 
     textgen gen(text, prefixLength);
@@ -48,17 +48,17 @@ TEST(GenerateTest, VectorSuffix) {
     int maxgen = 2;
     std::string result = gen.generate(maxgen);
 
-    EXPECT_EQ(result, "qwe rty uio b ");
+    EXPECT_EQ(result, "aa bb cc y ");
 }
 
 TEST(GenerateTest, Table) {
-    std::string text = "qwe rty uio a qwe rty uio b qwe rty uio c";
+    std::string text = "aa bb cc x aa bb cc y aa bb cc z";
     int prefixLength = 2;
     std::map<textgen::Prefix, std::vector<std::string>> stateTable = {
-        {{"qwe", "rty"}, {"uio"}},
-        {{"rty", "uio"}, {"a", "b"}},
-        {{"uio", "a"}, {"qwe"}},
-        {{"a", "qwe"}, {"rty"}}
+        {{"aa", "bb"}, {"cc"}},
+        {{"bb", "cc"}, {"x", "y"}},
+        {{"cc", "x"}, {"aa"}},
+        {{"x", "aa"}, {"bb"}}
     };
 
     textgen gen(stateTable);
@@ -66,5 +66,5 @@ TEST(GenerateTest, Table) {
     int maxgen = 2;
     std::string result = gen.generate(maxgen);
 
-    EXPECT_EQ(result, "a qwe rty uio ");
+    EXPECT_EQ(result, "x aa bb cc ");
 }
