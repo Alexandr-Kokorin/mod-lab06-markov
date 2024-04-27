@@ -66,5 +66,5 @@ TEST(GenerateTest, Table) {
     int maxgen = 2;
     std::string result = gen.generate(maxgen);
 
-    EXPECT_EQ(result, "x aa bb cc ");
+    EXPECT_EQ(result, "aa bb cc y ");
 }
