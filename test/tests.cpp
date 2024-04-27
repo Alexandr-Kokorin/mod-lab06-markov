@@ -48,7 +48,7 @@ TEST(GenerateTest, VectorSuffix) {
     int maxgen = 14;
     std::string result = gen.generate(maxgen);
 
-    EXPECT_EQ(result, "qwe rty uio c ");
+    EXPECT_EQ(result, "qwe rty uio a qwe rty uio b qwe rty uio b qwe rty uio b ");
 }
 
 TEST(GenerateTest, Table) {

@@ -55,9 +55,9 @@ std::string textgen::generate(int maxgen) {
             text += suffix[randomIndex] + ' ';
             prefix.pop_front();
             prefix.push_back(suffix[randomIndex]);
-        }
-        else
+        } else {
             break;
+        }
     }
 
     return text;
