@@ -8,16 +8,18 @@
 #include <map>
 #include <vector>
 #include <string>
-using namespace std;
 
 class textgen {
 public:
-    typedef deque<string> Prefix;
+
+    typedef std::deque<std::string> Prefix;
     Prefix prefix;
-    map<Prefix, vector<string> > stateTable;
+    std::map<Prefix, std::vector<std::string> > stateTable;
+
 public:
-    textgen(const string& text, int prefixLength);
-    textgen(const map<Prefix, vector<string>>& stateTable);
-    string generate(int maxgen);
+
+    textgen(const std::string& text, int prefixLength);
+    explicit textgen(const std::map<Prefix, std::vector<std::string>>& stateTable);
+    std::string generate(int maxgen);
 };
 #endif  // INCLUDE_TEXTGEN_H_
