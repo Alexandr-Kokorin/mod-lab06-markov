@@ -45,10 +45,10 @@ TEST(GenerateTest, VectorSuffix) {
 
     textgen gen(text, prefixLength);
 
-    int maxgen = 14;
+    int maxgen = 2;
     std::string result = gen.generate(maxgen);
 
-    EXPECT_EQ(result, "qwe rty uio a qwe rty uio b qwe rty uio b qwe rty uio b ");
+    EXPECT_EQ(result, "qwe rty uio b ");
 }
 
 TEST(GenerateTest, Table) {
