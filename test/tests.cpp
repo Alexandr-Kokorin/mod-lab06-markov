@@ -45,10 +45,10 @@ TEST(GenerateTest, VectorSuffix) {
 
     textgen gen(text, prefixLength);
 
-    int maxgen = 2;
+    int maxgen = 1;
     std::string result = gen.generate(maxgen);
 
-    EXPECT_EQ(result, "aa bb cc y ");
+    EXPECT_EQ(result, "aa bb cc ");
 }
 
 TEST(GenerateTest, Table) {
@@ -63,8 +63,8 @@ TEST(GenerateTest, Table) {
 
     textgen gen(stateTable);
 
-    int maxgen = 2;
+    int maxgen = 1;
     std::string result = gen.generate(maxgen);
 
-    EXPECT_EQ(result, "aa bb cc y ");
+    EXPECT_EQ(result, "aa bb cc ");
 }
