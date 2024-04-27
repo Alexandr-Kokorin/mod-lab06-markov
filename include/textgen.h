@@ -10,16 +10,15 @@
 #include <string>
 
 class textgen {
-public:
+    public:
+        typedef std::deque<std::string> Prefix;
+        Prefix prefix;
+        std::map<Prefix, std::vector<std::string> > stateTable;
 
-    typedef std::deque<std::string> Prefix;
-    Prefix prefix;
-    std::map<Prefix, std::vector<std::string> > stateTable;
-
-public:
-
-    textgen(const std::string& text, int prefixLength);
-    explicit textgen(const std::map<Prefix, std::vector<std::string>>& stateTable);
-    std::string generate(int maxgen);
+    public:
+        textgen(const std::string& text, int prefixLength);
+        explicit textgen(const std::map<Prefix,
+            std::vector<std::string>>& stateTable);
+        std::string generate(int maxgen);
 };
 #endif  // INCLUDE_TEXTGEN_H_

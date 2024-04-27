@@ -3,68 +3,68 @@
 #include <string>
 #include "textgen.h"
 
-class GenerateTest : public testing::Test {
-    TEST(GenerateTest, Prefix) {
-        std::string text = "Once there lived an old man and old woman";
-        int prefixLength = 2;
+class GenerateTest : public testing::Test {};
 
-        textgen gen(text, prefixLength);
+TEST(GenerateTest, Prefix) {
+    std::string text = "Once there lived an old man and old woman";
+    int prefixLength = 2;
 
-        textgen::Prefix prefix = { "Once", "there" };
+    textgen gen(text, prefixLength);
 
-        EXPECT_NE(gen.stateTable.find(prefix), gen.stateTable.end());
-    }
+    textgen::Prefix prefix = { "Once", "there" };
 
-    TEST(GenerateTest, Prefix_Suffix) {
-        std::string text = "Once there lived an old man and old woman";
-        int prefixLength = 2;
+    EXPECT_NE(gen.stateTable.find(prefix), gen.stateTable.end());
+}
 
-        textgen gen(text, prefixLength);
+TEST(GenerateTest, Prefix_Suffix) {
+    std::string text = "Once there lived an old man and old woman";
+    int prefixLength = 2;
 
-        textgen::Prefix prefix = { "Once", "there" };
+    textgen gen(text, prefixLength);
 
-        EXPECT_EQ(gen.stateTable[prefix][0], "lived");
-    }
+    textgen::Prefix prefix = { "Once", "there" };
 
-    TEST(GenerateTest, OnceSuffix) {
-        std::string text = "Once there lived an old man and old woman";
-        int prefixLength = 2;
+    EXPECT_EQ(gen.stateTable[prefix][0], "lived");
+}
 
-        textgen gen(text, prefixLength);
+TEST(GenerateTest, OnceSuffix) {
+    std::string text = "Once there lived an old man and old woman";
+    int prefixLength = 2;
 
-        int maxgen = 1;
-        std::string result = gen.generate(maxgen);
+    textgen gen(text, prefixLength);
 
-        EXPECT_EQ(result, "Once there lived ");
-    }
+    int maxgen = 1;
+    std::string result = gen.generate(maxgen);
 
-    TEST(GenerateTest, VectorSuffix) {
-        std::string text = "qwe rty uio a qwe rty uio b qwe rty uio c";
-        int prefixLength = 2;
+    EXPECT_EQ(result, "Once there lived ");
+}
 
-        textgen gen(text, prefixLength);
+TEST(GenerateTest, VectorSuffix) {
+    std::string text = "qwe rty uio a qwe rty uio b qwe rty uio c";
+    int prefixLength = 2;
 
-        int maxgen = 14;
-        std::string result = gen.generate(maxgen);
+    textgen gen(text, prefixLength);
 
-        EXPECT_EQ(result, "qwe rty uio c ");
-    }
+    int maxgen = 14;
+    std::string result = gen.generate(maxgen);
 
-    TEST(GenerateTest, Table) {
-        std::string text = "qwe rty uio a qwe rty uio b qwe rty uio c";
-        int prefixLength = 2;
-        std::map<textgen::Prefix, std::vector<std::string>> stateTable = {
-            {{"qwe", "rty"}, {"uio"}},
-            {{"rty", "uio"}, {"a", "b"}},
-            {{"uio", "a"}, {"qwe"}},
-            {{"a", "qwe"}, {"rty"}}
-        };
+    EXPECT_EQ(result, "qwe rty uio c ");
+}
 
-        textgen gen(stateTable);
+TEST(GenerateTest, Table) {
+    std::string text = "qwe rty uio a qwe rty uio b qwe rty uio c";
+    int prefixLength = 2;
+    std::map<textgen::Prefix, std::vector<std::string>> stateTable = {
+        {{"qwe", "rty"}, {"uio"}},
+        {{"rty", "uio"}, {"a", "b"}},
+        {{"uio", "a"}, {"qwe"}},
+        {{"a", "qwe"}, {"rty"}}
+    };
 
-        int maxgen = 2;
-        std::string result = gen.generate(maxgen);
+    textgen gen(stateTable);
 
-        EXPECT_EQ(result, "a qwe rty uio ");
-    }
+    int maxgen = 2;
+    std::string result = gen.generate(maxgen);
+
+    EXPECT_EQ(result, "a qwe rty uio ");
 }

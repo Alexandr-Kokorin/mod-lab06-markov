@@ -46,7 +46,7 @@ std::string textgen::generate(int maxgen) {
         text += prefix[i];
         text += ' ';
     }
-    for (int i = 0; i < maxgen && 
+    for (int i = 0; i < maxgen &&
         stateTable.find(prefix) != stateTable.end(); i++) {
         std::vector<std::string> suffix = stateTable[prefix];
         if (!suffix.empty()) {
@@ -56,7 +56,8 @@ std::string textgen::generate(int maxgen) {
             prefix.pop_front();
             prefix.push_back(suffix[randomIndex]);
         }
-        else break;
+        else
+            break;
     }
 
     return text;
