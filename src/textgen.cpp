@@ -7,7 +7,7 @@
 #include <map>
 #include <vector>
 
-textgen::textgen(const std::string& text, int prefixLength) {
+textgen::textgen(const std::string& text, const int NREF) {
     std::vector<std::string> table;
     int left = 0;
     for (int i = 0; i <= text.size(); i++) {
@@ -18,15 +18,15 @@ textgen::textgen(const std::string& text, int prefixLength) {
             left = i + 1;
         }
     }
-    for (int i = 0; i < prefixLength; i++) {
+    for (int i = 0; i < NREF; i++) {
         prefix.push_back(table[i]);
     }
-    for (int i = 0; i < table.size() - prefixLength; i++) {
-        Prefix p;
-        for (int j = 0; j < prefixLength; j++) {
-            p.push_back(table[i + j]);
+    for (int i = 0; i < table.size() - NREF; i++) {
+        Prefix pref;
+        for (int j = 0; j < NREF; j++) {
+            pref.push_back(table[i + j]);
         }
-        stateTable[p].push_back(table[i + prefixLength]);
+        stateTable[pref].push_back(table[i + NREF]);
     }
 }
 
@@ -38,15 +38,14 @@ textgen::textgen(const std::map<Prefix, std::vector<std::string>>& stateTable) {
     }
 }
 
-std::string textgen::generate(int maxgen) {
+std::string textgen::generate(const int MAXGEN) {
     std::string text;
-    int seed = time(0);
-    std::default_random_engine gen(seed);
+    std::default_random_engine gen(time(0));
     for (int i = 0; i < prefix.size(); i++) {
         text += prefix[i];
         text += ' ';
     }
-    for (int i = 0; i < maxgen &&
+    for (int i = 0; i < MAXGEN &&
         stateTable.find(prefix) != stateTable.end(); i++) {
         std::vector<std::string> suffix = stateTable[prefix];
         if (!suffix.empty()) {

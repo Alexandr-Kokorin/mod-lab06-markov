@@ -5,55 +5,53 @@
 
 class GenerateTest : public testing::Test {};
 
-TEST(GenerateTest, Prefix) {
+TEST(GenerateTest, TestPrefix) {
     std::string text = "Once there lived an old man and old woman";
-    int prefixLength = 2;
+    const int NREF = 2;
 
-    textgen gen(text, prefixLength);
+    textgen gen(text, NREF);
 
     textgen::Prefix prefix = { "Once", "there" };
 
     EXPECT_NE(gen.stateTable.find(prefix), gen.stateTable.end());
 }
 
-TEST(GenerateTest, Prefix_Suffix) {
+TEST(GenerateTest, TestPrefixSuffix) {
     std::string text = "Once there lived an old man and old woman";
-    int prefixLength = 2;
+    const int NREF = 2;
 
-    textgen gen(text, prefixLength);
+    textgen gen(text, NREF);
 
     textgen::Prefix prefix = { "Once", "there" };
 
     EXPECT_EQ(gen.stateTable[prefix][0], "lived");
 }
 
-TEST(GenerateTest, OnceSuffix) {
+TEST(GenerateTest, TestOnceSuffix) {
     std::string text = "Once there lived an old man and old woman";
-    int prefixLength = 2;
+    const int NREF = 2;
 
-    textgen gen(text, prefixLength);
+    textgen gen(text, NREF);
 
-    int maxgen = 1;
-    std::string result = gen.generate(maxgen);
+    const int MAXGEN = 1;
+    std::string result = gen.generate(MAXGEN);
 
     EXPECT_EQ(result, "Once there lived ");
 }
 
-TEST(GenerateTest, VectorSuffix) {
+TEST(GenerateTest, TestVectorSuffix) {
     std::string text = "aa bb cc x aa bb cc y aa bb cc z";
-    int prefixLength = 2;
+    const int NREF = 2;
 
-    textgen gen(text, prefixLength);
+    textgen gen(text, NREF);
 
-    int maxgen = 1;
-    std::string result = gen.generate(maxgen);
+    const int MAXGEN = 1;
+    std::string result = gen.generate(MAXGEN);
 
     EXPECT_EQ(result, "aa bb cc ");
 }
 
-TEST(GenerateTest, Table) {
-    std::string text = "aa bb cc x aa bb cc y aa bb cc z";
-    int prefixLength = 2;
+TEST(GenerateTest, TestTable) {
     std::map<textgen::Prefix, std::vector<std::string>> stateTable = {
         {{"aa", "bb"}, {"cc"}},
         {{"bb", "cc"}, {"x", "y"}},
@@ -63,8 +61,8 @@ TEST(GenerateTest, Table) {
 
     textgen gen(stateTable);
 
-    int maxgen = 1;
-    std::string result = gen.generate(maxgen);
+    const int MAXGEN = 1;
+    std::string result = gen.generate(MAXGEN);
 
     EXPECT_EQ(result, "aa bb cc ");
 }
